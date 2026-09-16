@@ -89,12 +89,11 @@ export class TeamsRepository {
 
   async setDefaultConferencingApp(teamId: number, appSlug?: string, appLink?: string) {
     const team = await this.getById(teamId);
+    const teamMetadata = teamMetadataSchema.parse(team?.metadata);
 
     if (!team) {
-      throw new NotFoundException("team not found");
+      throw new NotFoundException("user not found");
     }
-
-    const teamMetadata = teamMetadataSchema.parse(team.metadata);
 
     return await this.dbWrite.prisma.team.update({
       data: {
