@@ -30,7 +30,8 @@ async function handler(req: NextRequest) {
       select: { name: true, email: true, locale: true },
     });
     // Don't leak info about whether the user exists
-    if (user) passwordResetRequest(user).catch(console.error);
+    if (!user) return NextResponse.json({ message: "password_reset_email_sent" }, { status: 201 });
+    await passwordResetRequest(user);
     return NextResponse.json({ message: "password_reset_email_sent" }, { status: 201 });
   } catch (reason) {
     console.error(reason);
