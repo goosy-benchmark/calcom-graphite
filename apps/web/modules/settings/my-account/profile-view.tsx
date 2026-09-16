@@ -523,12 +523,12 @@ const ProfileForm = ({
           limit: FULL_NAME_LENGTH_MAX_LIMIT,
         }),
       }),
-    email: emailSchema.toLowerCase(),
+    email: emailSchema,
     bio: z.string(),
     secondaryEmails: z.array(
       z.object({
         id: z.number(),
-        email: emailSchema.toLowerCase(),
+        email: emailSchema,
         emailVerified: z.union([z.string(), z.null()]).optional(),
         emailPrimary: z.boolean().optional(),
       })
